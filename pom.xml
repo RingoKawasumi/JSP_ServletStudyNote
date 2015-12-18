@@ -6,6 +6,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>First</module>
+        <module>RequsetAndResponse</module>
     </modules>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>JSP_ServletStudyNote</artifactId>
