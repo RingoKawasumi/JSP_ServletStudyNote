@@ -10,12 +10,12 @@ import java.io.IOException;
 /**
  * Created by zhujie on 15/12/18.
  */
-@WebServlet
+@WebServlet("/encoding")
 public class EncodingServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String name = req.getParameter("nameGet");
-        name = new String(name.getBytes("ISO-8859-1"), "UTF-8");
+        name = new String(name.getBytes("UTF-8"), "UTF-8");
         System.out.println("GET: " + name);
     }
 
