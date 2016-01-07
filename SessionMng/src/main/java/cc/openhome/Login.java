@@ -2,7 +2,6 @@ package cc.openhome;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,13 +17,14 @@ public class Login extends HttpServlet {
         String user = req.getParameter("user");
         String passwd = req.getParameter("passwd");
         if ("caterpillar".equals(user) && "123456".equals(passwd)) {
-            String login = req.getParameter("login");
-            if ("auto".equals(login)) {
-                Cookie cookie = new Cookie("user", "caterpillar");
-                cookie.setMaxAge(7 * 24 * 60 * 60);
-                resp.addCookie(cookie);
-            }
-            req.setAttribute("user", user);
+//            String login = req.getParameter("login");
+//            if ("auto".equals(login)) {
+//                Cookie cookie = new Cookie("user", "caterpillar");
+//                cookie.setMaxAge(7 * 24 * 60 * 60);
+//                resp.addCookie(cookie);
+//            }
+//            req.setAttribute("user", user);
+            req.getSession().setAttribute("login", user);
             req.getRequestDispatcher("user.view").forward(req, resp);
         } else {
             resp.sendRedirect("login.html");

@@ -18,7 +18,7 @@ import java.util.List;
 @WebServlet("/register.do")
 public class Register extends HttpServlet {
 
-    private final String USERS = "/Users/kawasumi/Documents/MyTest/users";
+    private final String USERS = "/Users/zhujie/Documents/MyTest/users";
     private final String SUCCESS_VIEW = "success.view";
     private final String ERROR_VIEW = "error.view";
 

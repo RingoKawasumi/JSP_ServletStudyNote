@@ -16,7 +16,7 @@ import java.io.IOException;
 @WebServlet("/login.do")
 public class Login extends HttpServlet {
 
-    private final String USERS = "/Users/kawasumi/Documents/MyTest/users";
+    private final String USERS = "/Users/zhujie/Documents/MyTest/users";
     private final String SUCCESS_VIEW = "member.view";
     private final String ERROR_VIEW = "login.html";
 
@@ -25,6 +25,7 @@ public class Login extends HttpServlet {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
         if (checkLogin(username, password)) {
+            req.getSession().setAttribute("login", username);
             req.getRequestDispatcher(SUCCESS_VIEW).forward(req, resp);
         } else {
             resp.sendRedirect(ERROR_VIEW);
