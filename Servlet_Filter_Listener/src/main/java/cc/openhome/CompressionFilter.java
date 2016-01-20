@@ -1,7 +1,6 @@
 package cc.openhome;
 
 import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -10,7 +9,7 @@ import java.util.zip.GZIPOutputStream;
 /**
  * Created by zhujie on 16/1/20.
  */
-@WebFilter(filterName = "CompressionFilter", urlPatterns = {"/*"})
+//@WebFilter(filterName = "CompressionFilter", urlPatterns = {"/*"})
 public class CompressionFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {

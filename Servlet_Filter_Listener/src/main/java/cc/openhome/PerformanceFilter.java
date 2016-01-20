@@ -1,27 +1,25 @@
 package cc.openhome;
 
 import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
-import javax.servlet.annotation.WebInitParam;
 import java.io.IOException;
 
 /**
  * Created by zhujie on 16/1/19.
  */
-@WebFilter(filterName = "performance",
-        urlPatterns = {"/*"},
-        servletNames = {""},
-        initParams = {
-                @WebInitParam(name = "PARAM1", value = "VALUE1"),
-                @WebInitParam(name = "PARAM2", value = "VALUE2")
-        },
-        dispatcherTypes = {
-                DispatcherType.FORWARD,
-                DispatcherType.INCLUDE,
-                DispatcherType.REQUEST,
-                DispatcherType.ERROR,
-                DispatcherType.ASYNC
-        })
+//@WebFilter(filterName = "performance",
+//        urlPatterns = {"/*"},
+//        servletNames = {""},
+//        initParams = {
+//                @WebInitParam(name = "PARAM1", value = "VALUE1"),
+//                @WebInitParam(name = "PARAM2", value = "VALUE2")
+//        },
+//        dispatcherTypes = {
+//                DispatcherType.FORWARD,
+//                DispatcherType.INCLUDE,
+//                DispatcherType.REQUEST,
+//                DispatcherType.ERROR,
+//                DispatcherType.ASYNC
+//        })
 public class PerformanceFilter implements Filter {
 
     private FilterConfig config;

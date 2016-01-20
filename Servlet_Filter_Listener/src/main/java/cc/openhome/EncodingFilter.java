@@ -1,20 +1,18 @@
 package cc.openhome;
 
 import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
-import javax.servlet.annotation.WebInitParam;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 /**
  * Created by zhujie on 16/1/20.
  */
-@WebFilter(
-        urlPatterns = {"/*"},
-        initParams = {
-                @WebInitParam(name = "ENCODING", value = "UTF-8")
-        }
-)
+//@WebFilter(
+//        urlPatterns = {"/*"},
+//        initParams = {
+//                @WebInitParam(name = "ENCODING", value = "UTF-8")
+//        }
+//)
 public class EncodingFilter implements Filter {
 
     private String ENCODING;

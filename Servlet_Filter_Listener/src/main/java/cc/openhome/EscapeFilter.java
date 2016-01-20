@@ -1,14 +1,13 @@
 package cc.openhome;
 
 import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 /**
  * Created by zhujie on 16/1/19.
  */
-@WebFilter("/*")
+//@WebFilter("/*")
 public class EscapeFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
