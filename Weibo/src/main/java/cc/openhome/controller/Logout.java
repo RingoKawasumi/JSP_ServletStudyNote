@@ -1,6 +1,7 @@
 package cc.openhome.controller;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -10,16 +11,24 @@ import java.io.IOException;
 /**
  * Created by zhujie on 16/1/7.
  */
-@WebServlet("/logout.do")
+@WebServlet(
+        urlPatterns = {"/logout.do"},
+        initParams = {
+                @WebInitParam(name = "LOGIN_VIEW", value = "login.html")
+        }
+)
 public class Logout extends HttpServlet {
 
-    private final String LOGIN_VIEW = "login.html";
+    private String LOGIN_VIEW = "login.html";
+
+    @Override
+    public void init() throws ServletException {
+        LOGIN_VIEW = getServletConfig().getInitParameter("LOGIN_VIEW");
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if (req.getSession().getAttribute("login") == null) {
-            req.getSession().invalidate();
-        }
+        req.getSession().invalidate();
         resp.sendRedirect(LOGIN_VIEW);
     }
 }

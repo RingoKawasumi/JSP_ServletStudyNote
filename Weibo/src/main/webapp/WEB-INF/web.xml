@@ -4,4 +4,9 @@
 
 <web-app>
     <display-name>Archetype Created Web Application</display-name>
+
+    <context-param>
+        <param-name>USERS</param-name>
+        <param-value>/Users/zhujie/Documents/MyTest/users</param-value>
+    </context-param>
 </web-app>

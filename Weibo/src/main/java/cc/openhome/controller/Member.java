@@ -1,13 +1,18 @@
 package cc.openhome.controller;
 
+import cc.openhome.model.UserService;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.DateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.Locale;
+import java.util.Map;
 
 /**
  * Created by kawasumi on 16/1/3.
@@ -15,17 +20,7 @@ import java.util.*;
 @WebServlet("/member.view")
 public class Member extends HttpServlet {
 
-    private final String USERS = "/Users/zhujie/Documents/MyTest/users";
-    private final String LOGIN_VIEW = "login.html";
-    private final String SUCCESS_VIEW = "member.view";
-    private TxtFilenameFilter filenameFilter = new TxtFilenameFilter();
-    private DateComparator comparator = new DateComparator();
-
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (request.getSession().getAttribute("login") == null) {
-            response.sendRedirect(LOGIN_VIEW);
-            return;
-        }
         String username = (String) request.getSession().getAttribute("login");
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
@@ -53,7 +48,8 @@ public class Member extends HttpServlet {
         out.println("</form>");
 
         out.println("<tbody>");
-        Map<Date, String> messages = readMessage(username);
+        UserService userService = (UserService) getServletContext().getAttribute("userService");
+        Map<Date, String> messages = userService.readMessage(username);
         DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.FULL, Locale.CHINA);
         for (Date date : messages.keySet()) {
             out.println("<tr><td style='vertical-align: top;'>");
@@ -80,38 +76,4 @@ public class Member extends HttpServlet {
         processRequest(req, resp);
     }
 
-    private Map<Date, String> readMessage(String username) throws IOException {
-        File border = new File(USERS + "/" + username);
-        String[] txts = border.list(filenameFilter);
-
-        Map<Date, String> messages = new TreeMap<>(comparator);
-        for (String txt : txts) {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(USERS + "/" + username + "/" + txt), "UTF-8"));
-            String text = null;
-            StringBuilder builder = new StringBuilder();
-            while ((text = reader.readLine()) != null) {
-                builder.append(text);
-            }
-            Date date = new Date(Long.parseLong(txt.substring(0, txt.indexOf(".txt"))));
-            messages.put(date, builder.toString());
-            reader.close();
-        }
-        return messages;
-    }
-
-    private class TxtFilenameFilter implements FilenameFilter {
-
-        @Override
-        public boolean accept(File dir, String name) {
-            return name.endsWith(".txt");
-        }
-    }
-
-    private class DateComparator implements Comparator<Date> {
-
-        @Override
-        public int compare(Date o1, Date o2) {
-            return -o1.compareTo(o2);
-        }
-    }
 }
