@@ -2,6 +2,31 @@
         "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
         "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
-<web-app>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://java.sun.com/xml/ns/javaee"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         version="3.0">
     <display-name>Archetype Created Web Application</display-name>
+
+    <jsp-config>
+        <jsp-property-group>
+            <url-pattern>*.jsp</url-pattern>
+            <page-encoding>UTF-8</page-encoding>
+            <default-content-type>text/html</default-content-type>
+            <buffer>16kb</buffer>
+        </jsp-property-group>
+        <!--<jsp-property-group>-->
+        <!--<url-pattern>*.jsp</url-pattern>-->
+        <!--<include-prelude>/WEB-INF/jspf/header.jspf</include-prelude>-->
+        <!--<include-coda>/WEB-INF/jspf/foot.jspf</include-coda>-->
+        <!--</jsp-property-group>-->
+        <jsp-property-group>
+            <url-pattern>*.jsp</url-pattern>
+            <trim-directive-whitespaces>true</trim-directive-whitespaces>
+        </jsp-property-group>
+        <!--<jsp-property-group>-->
+        <!--<url-pattern>*.jsp</url-pattern>-->
+        <!--<scripting-invalid>true</scripting-invalid>-->
+        <!--</jsp-property-group>-->
+    </jsp-config>
 </web-app>
