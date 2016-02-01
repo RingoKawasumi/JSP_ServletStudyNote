@@ -29,4 +29,13 @@
         <!--<scripting-invalid>true</scripting-invalid>-->
         <!--</jsp-property-group>-->
     </jsp-config>
+
+    <!--<error-page>-->
+    <!--<exception-type>java.lang.NumberFormatException</exception-type>-->
+    <!--<location>/error.jsp</location>-->
+    <!--</error-page>-->
+    <error-page>
+        <error-code>404</error-code>
+        <location>/404.jsp</location>
+    </error-page>
 </web-app>
