@@ -10,35 +10,38 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Date;
+import java.util.List;
 
 /**
- * Created by zhujie on 16/1/7.
+ * Created by zhujie on 16/2/14.
  */
 @WebServlet(
-        urlPatterns = {"/delete.do"},
+        urlPatterns = {"/user/*"},
         initParams = {
-                @WebInitParam(name = "SUCCESS_VIEW", value = "member.jsp")
+                @WebInitParam(name = "USER_VIEW", value = "/user.jsp")
         }
 )
-public class Delete extends HttpServlet {
+public class User extends HttpServlet {
 
-    private String SUCCESS_VIEW;
+    private String USER_VIEW;
 
     @Override
     public void init() throws ServletException {
-        SUCCESS_VIEW = getServletConfig().getInitParameter("SUCCESS_VIEW");
+        USER_VIEW = getServletConfig().getInitParameter("USER_VIEW");
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String username = (String) req.getSession().getAttribute("login");
-        String message = req.getParameter("message");
         UserService userService = (UserService) getServletContext().getAttribute("userService");
-        Blah blah = new Blah();
-        blah.setUsername(username);
-        blah.setDate(new Date(Long.parseLong(message)));
-        userService.deleteBlah(blah);
-        resp.sendRedirect(SUCCESS_VIEW);
+
+        String username = req.getPathInfo().substring(1);
+        if (userService.isInvalidUsername(username)) {
+            Blah blah = new Blah();
+            blah.setUsername(username);
+            List<Blah> blahs = userService.getBlahs(blah);
+            req.setAttribute("blahs", blahs);
+        }
+        req.setAttribute("username", username);
+        req.getRequestDispatcher(USER_VIEW).forward(req, resp);
     }
 }

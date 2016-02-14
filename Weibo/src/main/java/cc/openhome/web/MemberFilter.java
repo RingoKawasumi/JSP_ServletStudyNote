@@ -12,7 +12,7 @@ import java.io.IOException;
  */
 @WebFilter(
         urlPatterns = {"/delete.do", "/logout.do",
-                "/message.do", "/member.view"},
+                "/message.do", "/member.jsp"},
         initParams = {
                 @WebInitParam(name = "LOGIN_VIEW", value = "login.html")
         }

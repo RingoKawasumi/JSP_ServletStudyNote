@@ -1,5 +1,6 @@
 package cc.openhome.controller;
 
+import cc.openhome.model.Blah;
 import cc.openhome.model.UserService;
 
 import javax.servlet.ServletException;
@@ -9,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by zhujie on 16/1/7.
@@ -16,36 +19,48 @@ import java.io.IOException;
 @WebServlet(
         urlPatterns = {"/message.do"},
         initParams = {
-                @WebInitParam(name = "SUCCESS_VIEW", value = "member.view"),
-                @WebInitParam(name = "ERROR_VIEW", value = "member.view")
+                @WebInitParam(name = "MEMBER_VIEW", value = "member.jsp")
         }
 )
 public class Message extends HttpServlet {
 
-    private String SUCCESS_VIEW;
-    private String ERROR_VIEW;
+    private String MEMBER_VIEW;
 
     @Override
     public void init() throws ServletException {
-        SUCCESS_VIEW = getServletConfig().getInitParameter("SUCCESS_VIEW");
-        ERROR_VIEW = getServletConfig().getInitParameter("ERROR_VIEW");
+        MEMBER_VIEW = getServletConfig().getInitParameter("MEMBER_VIEW");
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        processRequest(req, resp);
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        processRequest(req, resp);
+    }
+
+    protected void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String username = (String) req.getSession().getAttribute("login");
+        UserService userService = (UserService) getServletContext().getAttribute("userService");
+        Blah blah = new Blah();
+        blah.setUsername(username);
+
         String blabla = req.getParameter("blabla");
         if (blabla != null && blabla.length() != 0) {
             if (blabla.length() < 140) {
-                String username = (String) req.getSession().getAttribute("login");
-                UserService userService = (UserService) getServletContext().getAttribute("userService");
-                userService.addMessage(username, blabla);
-                resp.sendRedirect(SUCCESS_VIEW);
+                blah.setDate(new Date());
+                blah.setTxt(blabla);
+                userService.addBlah(blah);
             } else {
-                req.getRequestDispatcher(ERROR_VIEW).forward(req, resp);
+                req.setAttribute("blabla", blabla);
             }
-        } else {
-            resp.sendRedirect(ERROR_VIEW);
         }
+
+        List<Blah> blahs = userService.getBlahs(blah);
+        req.setAttribute("blahs", blahs);
+        req.getRequestDispatcher(MEMBER_VIEW).forward(req, resp);
     }
 
 }

@@ -3,7 +3,6 @@ package cc.openhome.controller;
 import cc.openhome.model.UserService;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,7 +16,7 @@ import java.util.Map;
 /**
  * Created by kawasumi on 16/1/3.
  */
-@WebServlet("/member.view")
+//@WebServlet("/member.view")
 public class Member extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

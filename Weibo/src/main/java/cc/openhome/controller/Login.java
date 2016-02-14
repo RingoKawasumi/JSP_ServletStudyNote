@@ -16,8 +16,8 @@ import java.io.IOException;
 @WebServlet(
         urlPatterns = {"/login.do"},
         initParams = {
-                @WebInitParam(name = "SUCCESS_VIEW", value = "success.view"),
-                @WebInitParam(name = "ERROR_VIEW", value = "error.view")
+                @WebInitParam(name = "SUCCESS_VIEW", value = "member.jsp"),
+                @WebInitParam(name = "ERROR_VIEW", value = "error.jsp")
         }
 )
 public class Login extends HttpServlet {
@@ -42,6 +42,7 @@ public class Login extends HttpServlet {
             req.getSession().setAttribute("login", username);
             req.getRequestDispatcher(SUCCESS_VIEW).forward(req, resp);
         } else {
+            req.setAttribute("eeor", "名称或密码错误");
             resp.sendRedirect(ERROR_VIEW);
         }
     }

@@ -1,10 +1,7 @@
 package cc.openhome.model;
 
 import java.io.*;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * Created by zhujie on 16/1/21.
@@ -78,6 +75,39 @@ public class UserService {
 
     public void deleteMessage(String username, String message) {
         File file = new File(USERS + "/" + username + "/" + message + ".txt");
+        if (file.exists()) {
+            file.delete();
+        }
+    }
+
+    public List<Blah> getBlahs(Blah blah) throws IOException {
+        File border = new File(USERS + "/" + blah.getUsername());
+        String[] txts = border.list(filenameFilter);
+
+        List<Blah> blahs = new ArrayList<>();
+        for (String txt : txts) {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(USERS + "/" + blah.getUsername() + "/" + txt), "UTF-8"));
+            String text = null;
+            StringBuilder builder = new StringBuilder();
+            while ((text = reader.readLine()) != null) {
+                builder.append(text);
+            }
+            Date date = new Date(Long.parseLong(txt.substring(0, txt.indexOf(".txt"))));
+            blahs.add(new Blah(blah.getUsername(), date, builder.toString()));
+            reader.close();
+        }
+        return blahs;
+    }
+
+    public void addBlah(Blah blah) throws IOException {
+        String file = USERS + "/" + blah.getUsername() + "/" + blah.getDate().getTime() + ".txt";
+        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), "UTF-8"));
+        writer.write(blah.getTxt());
+        writer.close();
+    }
+
+    public void deleteBlah(Blah blah) {
+        File file = new File(USERS + "/" + blah.getUsername() + "/" + blah.getDate().getTime() + ".txt");
         if (file.exists()) {
             file.delete();
         }

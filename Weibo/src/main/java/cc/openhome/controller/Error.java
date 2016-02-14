@@ -1,7 +1,6 @@
 package cc.openhome.controller;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,7 +11,7 @@ import java.util.List;
 /**
  * Created by kawasumi on 16/1/3.
  */
-@WebServlet("/error.view")
+//@WebServlet("/error.view")
 public class Error extends HttpServlet {
 
     @Override
